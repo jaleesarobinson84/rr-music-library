@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef, Fragment } from 'react'
+import react, { useEffect, useState,useRef, Fragment } from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Gallery from './components/Gallery'
 import SearchBar from './components/SearchBar'
@@ -39,35 +39,32 @@ function App(){
   }
   
 
-return (
-        <div className="App">
-          <SearchContext.Provider value={{
-            term: SearchInput,
-            handleSearch: handleSearch
-          }}>
-          {message}
-          <Router>
-            <Routes>
-              <Route path="/" element={
-            <Fragment>
-            <SearchBar handleSearch = {handleSearch}/>
-          </SearchContext.Provider>
-              {message}
-            <DataContext.Provider value={data} >
-              <Gallery data={data}/>
-              </Fragment>
-            } />
+  return (
+    <div className="App">
+      <SearchContext.Provider value={{ term: searchInputRef, handleSearch: handleSearch }}>
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Fragment>
+                  <SearchBar handleSearch={handleSearch} />
+                  <p>{message}</p>
+                  <DataContext.Provider value={data}>
+                    <Gallery data={data} />
+                  </DataContext.Provider>
+                </Fragment>
+              }
+            />
             <Route path="/album/:id" element={<AlbumView />} />
             <Route path="/artist/:id" element={<ArtistView />} />
-            </Routes>
-            </Router>
-              <AlbumView/>
-              <ArtistView/>
-            </DataContext.Provider>
-        </div>
-    )
+          </Routes>
+        </Router>
+        <AlbumView />
+        <ArtistView />
+      </SearchContext.Provider>
+    </div>
+  );
 }
 
 export default App
-
-
