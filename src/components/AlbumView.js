@@ -1,11 +1,10 @@
 import {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
-import {useNavigate} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 
 function AlbumView() {
     const navigate = useNavigate()
     const {id} = useParams()
-    const [album, setAlbumData] = useState([])
+    const [albumData, setAlbumData] = useState([])
 
     useEffect(() => {
         const API_URL = `http://localhost:4000/song/${id}`
@@ -29,7 +28,8 @@ function AlbumView() {
 
     return (
         <div>
-            {renderSongs}
+            <h2>The id passed was: {id}</h2>
+            <p>Album Data Goes Here</p>
         </div>
     )
 
@@ -50,3 +50,5 @@ return (
     </div>
     )
 }
+
+export default AlbumView

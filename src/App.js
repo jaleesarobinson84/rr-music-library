@@ -1,8 +1,11 @@
-import { useEffect, useState,useRef } from 'react'
+import { useEffect, useState,useRef, Fragment } from 'react'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Gallery from './components/Gallery'
 import SearchBar from './components/SearchBar'
 import { DataContext } from './context/DataContext'
 import {SearchContext} from './context/SearchContext'
+import AlbumView from './components/AlbumView'
+import ArtistView from './components/ArtistView'
 
 
 function App(){
@@ -42,11 +45,24 @@ return (
             term: SearchInput,
             handleSearch: handleSearch
           }}>
-            <SearchBar />
+          {message}
+          <Router>
+            <Routes>
+              <Route path="/" element={
+            <Fragment>
+            <SearchBar handleSearch = {handleSearch}/>
           </SearchContext.Provider>
-            {message}
+              {message}
             <DataContext.Provider value={data} >
-              <Gallery/>
+              <Gallery data={data}/>
+              </Fragment>
+            } />
+            <Route path="/album/:id" element={<AlbumView />} />
+            <Route path="/artist/:id" element={<ArtistView />} />
+            </Routes>
+            </Router>
+              <AlbumView/>
+              <ArtistView/>
             </DataContext.Provider>
         </div>
     )
