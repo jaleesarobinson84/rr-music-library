@@ -9,6 +9,7 @@ function App(){
     let [search, setSearch] = useState('')
     let [data, setData] = useState([])
     let [message, setMessage] = useState('Search for Music!')
+    let SearchInput = useRef('')
 
 
     const API_URL = 'https://itunes.apple.com/search?term='
@@ -36,8 +37,13 @@ function App(){
   
 
 return (
-        <div>
-            <SearchBar handleSearch = {handleSearch} />
+        <div className="App">
+          <SearchContext.Provider value={{
+            term: SearchInput,
+            handleSearch: handleSearch
+          }}>
+            <SearchBar />
+          </SearchContext.Provider>
             {message}
             <DataContext.Provider value={data} >
               <Gallery/>

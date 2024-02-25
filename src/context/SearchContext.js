@@ -6,3 +6,4 @@ export const SearchContext = createdContext({
 })
 
 export default SearchContext
+
