@@ -27,15 +27,7 @@ function ArtistView() {
             </div>
         )
     })
-    
-    return (
-        <div>
-            <h2>The id passed was: {id}</h2>
-            <p>Artist Data Goes Here!</p>
-            {renderAlbums}
-        </div>
-    )
-    
+        
     const navButtons = () => {
         return(
             <div>

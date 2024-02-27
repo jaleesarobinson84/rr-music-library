@@ -16,6 +16,8 @@ function AlbumView() {
         fetchData()
     }, [id])
 
+    
+
     const justSongs = albumData.filter(entry => entry.wrapperType === 'track')
 
     const renderSongs = justSongs.map((song, i) => {
@@ -26,14 +28,7 @@ function AlbumView() {
         )
     })
 
-    return (
-        <div>
-            <h2>The id passed was: {id}</h2>
-            <p>Album Data Goes Here</p>
-        </div>
-    )
-
-    const navButtons = () => {
+ const navButtons = () => {
         return(
             <div>
                 <button onClick={() => navigate(-1)}>Back</button>
