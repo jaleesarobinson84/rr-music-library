@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link } from 'react'
+import { useState, Link } from 'react'
 
 function GalleryItem(props) {
 

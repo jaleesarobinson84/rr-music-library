@@ -1,20 +1,23 @@
-import react, { useEffect, useState,useRef, Fragment } from 'react'
+import './App.css';
+import { useEffect, useState,useRef, Fragment } from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import ArtistView from './components/ArtistView'
+import AlbumView from './components/AlbumView'
 import Gallery from './components/Gallery'
 import SearchBar from './components/SearchBar'
-import AlbumView from './components/AlbumView'
-import ArtistView from './components/ArtistView'
-import {Fragment} from 'react'
 
 
 function App(){
-    let [search, setSearch] = useState('')
-    let [data, setData] = useState([])
-    let [message, setMessage] = useState('Search for Music!')
-    let SearchInput = useRef('')
+  let searchInput = useRef('')
+  let [data, setData] = useState(null)
+  let [message, setMessage] = useState('Search for Music!')
 
+  const handleSearch = (e, term) => {
+    e.preventDefault()
+    setData(fetchData(term, 'main'))
+  }
 
-    const API_URL = 'https://itunes.apple.com/search?term='
+  const API_URL = 'https://itunes.apple.com/search?term='
 
     useEffect(() => {
       if (search) {
@@ -32,29 +35,30 @@ function App(){
     }
   }, [search])
 
-  const handleSearch = (e, term) => {
-    e.preventDefault()
-    setSearch(term)
-  }
   
 
   return (
     <div className="App">
       {message}
       <Router>
-        <Route exact path="/">
-          <SearchBar handleSearch={handleSearch} />
-          <Gallery data={data} />
+        <Route exact path={'/'}>
+          <SearchContext.Provider value={{term: searchInput, handleSearch: handleSearch}}>
+            <SearchBar />
+          </SearchContext.Provider>
+            <DataContext.Provider value={data}>
+              {renderGallery()}
+            </DataContext.Provider>
         </Route>
         <Route path="/album/:id">
-          <AlbumView term={searchTerm} />
+          <AlbumView />
         </Route>
         <Route path="/artist/:id">
-          <ArtistView term={searchTerm} />
+          <ArtistView />
         </Route>
       </Router>
     </div>
   );
 }
+
 
 export default App
